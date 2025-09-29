@@ -1,41 +1,55 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Todo.Core.Abstractions;
+using Todo.Core.Infrastructure;
+using Todo.Core.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.services.AddSingleton<ITodoRepository, InMemoryTodoRepository>();
+builder.services.AddScoped<ITodoService, TodoService>();
+
+// CORS
+var coresPolicy = "dev";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(coresPolicy, policy => {
+        policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    })
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.MapGet("/api/todos", async ([FromServices] ITodoService service, CancellationToken ct) =>{
+    Results.Ok(await service.GetAllAsync(ct));
+});
 
-app.UseHttpsRedirection();
+app.MapPost("/api/todos", async ([FromServices] ITodoService service, [FromBody] CreateTodo req, CancellationToken ct) => {
+    try {
+        var created = await service.AddAsync(req.Title, ct);
+        return Results.Ok(created);
+    }
+    catch (ValidationException ex){
+        return Results.ValidationProblem(new Dictionary<string, string[]>{
+            ["Title"] = new[] {ex.Message}
+        });
+    }
+});
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapDelete("/api/todos/{id:guid}", async ([FromServices] ITodoService service, Guid id, CancellationToken ct) => {
+    var deleted = await service.DeleteAsync(id, ct);
+    return deleted ? Results.NoContent() : Results.NotFound();
+});
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+
+
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+public record CreateTodo(string title);
