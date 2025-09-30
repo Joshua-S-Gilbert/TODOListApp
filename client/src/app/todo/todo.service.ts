@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../environments/environment.development';
 import { TodoItem } from './todo.model';
 import { firstValueFrom } from 'rxjs';
+import { TodoListComponent } from './todo-list/todo-list';
 
 
 @Injectable({
@@ -22,6 +23,10 @@ export class TodoService {
 
   Delete(Id: string){
     return this.http.delete(`${this.baseUrl}/${Id}`);
+  }
+
+  SetFinished(id:string, finished:boolean){
+    return this.http.put<TodoItem>(`${this.baseUrl}/${encodeURIComponent(id)}/finished`, {finished});
   }
 
   // testing purposes

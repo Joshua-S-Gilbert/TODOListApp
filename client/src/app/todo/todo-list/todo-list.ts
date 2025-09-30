@@ -40,4 +40,11 @@ export class TodoListComponent {
       this.todos.update(list => list.filter(i => i.id !== DeleteId));
     });
   }
+
+  toggleFinished(task: TodoItem){
+    this.api.SetFinished(task.id, !task.finished).subscribe(updated => {
+      this.todos.update(list => list.map(x => x.id == updated.id ? updated : x)); // before i forget, it goes like this:
+      // if list.x.id == updated.id, switch them. otherwise keep existing x
+    })
+  }
 }

@@ -37,3 +37,8 @@ li {
     overflow:hidden; 
     text-overflow:ellipsis;
 }
+
+.finished {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
