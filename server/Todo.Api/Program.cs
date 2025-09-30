@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Todo.Core.Abstractions;
 using Todo.Core.Infrastructure;
 using Todo.Core.Services;
+using System;   // debugging purposes
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddEndpointsApiExplorer(); // needed for swagger, exposes endpoint metadata
-builder.Services.AddSwaggerGen();   // API documentation
+// i removed this for now because installing swagger is an extra step for build. not truly necessary either
+// builder.Services.AddSwaggerGen();   // API documentation
 
 builder.Services.AddSingleton<ITodoRepository, InMemoryTodoRepository>();   // create once, used everywhere until app shutdown. related to stateless service. careful of race conditions on shared memory
 builder.Services.AddScoped<ITodoService, TodoService>();    // 1 instance per request. after request ends, dispose instance
@@ -26,8 +28,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+// app.UseSwagger();
+// app.UseSwaggerUI();
 app.UseCors(corsPolicy);
 
 app.MapGet("/api/todos", async ([FromServices] ITodoService service, CancellationToken ct) =>{
@@ -35,6 +37,7 @@ app.MapGet("/api/todos", async ([FromServices] ITodoService service, Cancellatio
 });
 
 app.MapPost("/api/todos", async ([FromServices] ITodoService service, [FromBody] CreateTodo req, CancellationToken ct) => {
+    // Console.WriteLine("start post");    // debugging purposes, left for posterity
     try {
         var created = await service.AddAsync(req.Title, ct);
         return Results.Ok(created);
@@ -47,6 +50,7 @@ app.MapPost("/api/todos", async ([FromServices] ITodoService service, [FromBody]
 });
 
 app.MapDelete("/api/todos/{id:guid}", async ([FromServices] ITodoService service, Guid id, CancellationToken ct) => {
+    // Console.WriteLine("start delete");   // debugging purposes, left for posterity
     var deleted = await service.DeleteAsync(id, ct);
     return deleted ? Results.NoContent() : Results.NotFound();  // 204 vs 404
 });

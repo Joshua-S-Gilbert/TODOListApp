@@ -38,7 +38,7 @@ export class TodoListComponent {
 
   onDelete(DeleteId: string){
     this.api.Delete(DeleteId).subscribe(() => {
-      this.todos.update(list => list.filter(i => i.Id !== DeleteId));
+      this.todos.update(list => list.filter(i => i.id !== DeleteId));
     });
   }
 }

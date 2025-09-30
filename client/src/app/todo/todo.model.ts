@@ -1,5 +1,5 @@
 export interface TodoItem {
-    Id: string;
-    Title: string;
-    CreatedAt: string; // ISO
+    id: string;
+    title: string;
+    createdAt: string; // ISO
 }

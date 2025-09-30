@@ -2,16 +2,15 @@
     <h1>TODOs</h1>
 
     <form (ngSubmit)="onAdd()" class="add-row">
-        <!-- ngModel might need 2 way binding, but i forget how to do that with signals -->
-        <input (ngModel)="title()" name="title" placeholder="Add Task" required maxlength="200"/>
+        <input [(ngModel)]="title" name="title" placeholder="Add Task" required maxlength="200"/>
         <button type="submit">Add</button>
     </form>
 
     <ul>
         @for (task of todos(); track $index) {
             <li>
-                <span class="title">{{task.Title}}</span>
-                <button (click)="onDelete(task.Id)">Delete</button>
+                <span class="title">{{task.title}}</span>
+                <button (click)="onDelete(task.id)">Delete</button>
             </li>
         }
     </ul>
