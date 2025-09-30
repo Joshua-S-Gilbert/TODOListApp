@@ -91,32 +91,39 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JoshuaGilbert\\.nuget\\packages\\": {}
+    "C:\\Users\\joshu\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JoshuaGilbert\\code\\zzzpersonalproject\\TODOListApp\\server\\Todo.Api\\Todo.Api.csproj",
+      "projectUniqueName": "C:\\Users\\joshu\\OneDrive\\Desktop\\global360\\TODOListApp\\server\\todo.api\\Todo.Api.csproj",
       "projectName": "Todo.Api",
-      "projectPath": "C:\\Users\\JoshuaGilbert\\code\\zzzpersonalproject\\TODOListApp\\server\\Todo.Api\\Todo.Api.csproj",
-      "packagesPath": "C:\\Users\\JoshuaGilbert\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JoshuaGilbert\\code\\zzzpersonalproject\\TODOListApp\\server\\Todo.Api\\obj\\",
+      "projectPath": "C:\\Users\\joshu\\OneDrive\\Desktop\\global360\\TODOListApp\\server\\todo.api\\Todo.Api.csproj",
+      "packagesPath": "C:\\Users\\joshu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joshu\\OneDrive\\Desktop\\global360\\TODOListApp\\server\\todo.api\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\JoshuaGilbert\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\joshu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\JoshuaGilbert\\code\\zzzpersonalproject\\TODOListApp\\server\\Todo.Core\\Todo.Core.csproj": {
-              "projectPath": "C:\\Users\\JoshuaGilbert\\code\\zzzpersonalproject\\TODOListApp\\server\\Todo.Core\\Todo.Core.csproj"
+            "C:\\Users\\joshu\\OneDrive\\Desktop\\global360\\TODOListApp\\server\\Todo.Core\\Todo.Core.csproj": {
+              "projectPath": "C:\\Users\\joshu\\OneDrive\\Desktop\\global360\\TODOListApp\\server\\Todo.Core\\Todo.Core.csproj"
             }
           }
         }

@@ -1,15 +1,18 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect, computed } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { TodoItem } from '../todo.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-todo-list',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.css',
   standalone: true  // might be deprecated as of angular 19. angular 18 required it. probably remove in future
 })
-export class TodoList {
+export class TodoListComponent {
   private api = inject(TodoService);
   readonly todos = signal<TodoItem[]>([]); 
   readonly title = signal('');
