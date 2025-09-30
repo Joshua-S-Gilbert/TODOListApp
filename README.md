@@ -1,5 +1,8 @@
 # TODO list app
 
+simple TODO list app with Angular frontend and .NET 9 backend. shows CRUD operations, angular framework, API
+
+## versions
 Frontend: Angular 20.3.3
 Backend: .NET 9 Minimal API
 
@@ -12,26 +15,33 @@ Angular CLI (npm install -g @angular/cli)
 ## How to run
 
 1. run backend
-  1. cd server/Todo.Api
-  2. dotnet restore
-  3. dotnet run
+``` bash
+  cd server/Todo.Api
+  dotnet restore
+  dotnet run
+```
 2. run frontend
-  1. cd client
-  2. npm install
-  3. ng serve
+``` bash
+  cd client
+  npm install
+  ng serve
+```
 
 double check your ports. the backend should run on http://localhost:5287
 if it doesn't, change the port under client/src/app/environments/environments.development.ts
 
 by default angular is hosted on http://localhost:4200
 
-API Endpoints
-* GET /api/todos - returns list of all tasks
-* POST /api/todos - creates a task. Body: { "title": "string" }
-* DELETE /api/todos/{id} - Delete task by task ID
-* PUT /api/todos/{id}/finished - set finished state. Body: { "finished": true }
+## API Endpoints
+| Method | Endpoint           | Description              |
+|--------|--------------------|--------------------------|
+| GET    | /api/todos         | returns list of all tasks |
+| POST   | /api/todos         | creates a task. Body: { "title": "string" } |
+| DELETE | /api/todos/{id}    | Delete task by task ID   |
+| PUT    | /api/todos/{id}/finished | set finished state. Body: { "finished": true } |
 
 
+## notes/enhancements
 Originally this app was made with only add task, delete task and a get for getting the tasks.
 I added a put for updating the finished state. 
 Normally i use angular material and tailwindcss for styling, but this is a simple app
