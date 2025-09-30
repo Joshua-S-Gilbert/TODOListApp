@@ -8,9 +8,6 @@ using System;   // debugging purposes
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddEndpointsApiExplorer(); // needed for swagger, exposes endpoint metadata
-// i removed this for now because installing swagger is an extra step for build. not truly necessary either
-// builder.Services.AddSwaggerGen();   // API documentation
 
 builder.Services.AddSingleton<ITodoRepository, InMemoryTodoRepository>();   // create once, used everywhere until app shutdown. related to stateless service. careful of race conditions on shared memory
 builder.Services.AddScoped<ITodoService, TodoService>();    // 1 instance per request. after request ends, dispose instance
@@ -28,8 +25,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// app.UseSwagger();
-// app.UseSwaggerUI();
 app.UseCors(corsPolicy);
 
 app.MapGet("/api/todos", async ([FromServices] ITodoService service, CancellationToken ct) =>{
