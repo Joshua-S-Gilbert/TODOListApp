@@ -10,6 +10,7 @@
         @for (task of todos(); track $index) {
             <li>
                 <span class="title">{{task.title}}</span>
+                <span class="title">{{task.createdAt | date:'dd/MM/yyyy hh:mm a'}}</span>
                 <button (click)="onDelete(task.id)">Delete</button>
             </li>
         }
