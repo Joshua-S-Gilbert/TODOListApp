@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Todo.Core.Abstractions;
 using Todo.Core.Services;
+using Todo.Core.Infrastructure;
 using Xunit;
 
 namespace Todo.Tests;
@@ -12,21 +13,50 @@ public class TodoServiceTests
     public async Task AddValidCreateItem()
     {
         var repo = new InMemoryTodoRepository();
-        var svc = new TodoService(repo);
-        var item = await svc.AddAsync("Test Task");
+        var service = new TodoService(repo);
+        var item = await service.AddAsync("Test Task");
         Assert.NotEqual(Guid.Empty, item.Id);
         Assert.Equal("Test Task", item.Title);
-        Assert.False(item.IsCompleted);
+        Assert.False(item.finished);
+    }
+
+    [Fact]
+    public async Task AddValidTitle()
+    {
+        var repo = new InMemoryTodoRepository();
+        var service = new TodoService(repo);
+        var item = await service.AddAsync("     isTrimmed      ");
+        Assert.Equal("isTrimmed", item.Title);
     }
 
     // test for empty title
-    [Theory]    
+    [Theory]
     [InlineData("")]
     [InlineData("     ")]
-    public async Task AddBlankTitleThrows(string title){
-        var svc = new TodoService(new InMemoryTodoRepository());
-        await Assert.ThrowsAsync<ValidationException>(async () => await svc.AddAsync(title));
+    public async Task AddBlankTitleThrows(string title)
+    {
+        var service = new TodoService(new InMemoryTodoRepository());
+        await Assert.ThrowsAsync<ValidationException>(() => service.AddAsync(title));
     }
 
-    // test for too long title is basically same as above. Time constraints means I won't write it out.
+    [Fact]
+    public async Task AddTooLongTitleThrows()
+    {
+        var service = new TodoService(new InMemoryTodoRepository());
+        string longTitle = new string('*', 201);
+        await Assert.ThrowsAsync<ValidationException>(() => service.AddAsync(longTitle));
+    }
+
+    [Fact]
+    public async Task SetFinished()
+    {
+        var repo = new InMemoryTodoRepository();
+        var service = new TodoService(repo);
+        var item = await service.AddAsync("Task");
+        var updated = await service.SetFinishedAsync(item.Id, true);
+        Assert.True(updated!.finished);
+        Assert.Equal(item.Id, updated.Id);
+    }
+
+    
 }
