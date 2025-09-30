@@ -1,0 +1,8 @@
+<div class="container">
+    <h1>TODOs</h1>
+
+    <form (ngSubmit)="onAdd()" class="add-row">
+        <input [(ngModel)]="title()" name="title" placeholder="Add Task" required maxlength="200"/>
+        
+    </form>
+</div>

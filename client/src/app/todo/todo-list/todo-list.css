@@ -1,0 +1,39 @@
+.container {
+    max-width: 50%;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.add-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+input {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+ul {
+    display:flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    gap: 0.5rem;
+}
+
+li {
+    display:flex; 
+    justify-content:space-between;
+    align-items:center;
+    padding:.5rem .75rem; 
+    border:1px solid #ddd; 
+    border-radius:8px; 
+}
+
+.title { 
+    overflow:hidden; 
+    text-overflow:ellipsis;
+}
