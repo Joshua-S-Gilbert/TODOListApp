@@ -32,6 +32,13 @@ if it doesn't, change the port under client/src/app/environments/environments.de
 
 by default angular is hosted on http://localhost:4200
 
+## run unit tests
+``` bash
+cd server/Todo.Tests
+dotnet restore
+dotnet test
+```
+
 ## API Endpoints
 | Method | Endpoint           | Description              |
 |--------|--------------------|--------------------------|
