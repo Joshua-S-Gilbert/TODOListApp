@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.css',
-  standalone: true  // might be deprecated as of angular 19. angular 18 required it. probably remove in future
 })
 export class TodoListComponent {
   private api = inject(TodoService);
@@ -26,7 +25,7 @@ export class TodoListComponent {
   }
 
   onAdd(){
-    const newTitle = this.title().trim(); // already trim in backend. duplication?
+    const newTitle = this.title();
     if (!newTitle) {
         return;
     }
